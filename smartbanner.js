@@ -79,8 +79,10 @@
                     openLink(IOS_DEEP_LINK, IOS_APP_STORE_URL);
                 };
             }
+            
             function openLink(deepLink, storeLink) {
                 let isOpened = false;
+                let iframe = null;
                 function detectAppOpen() {
                     if (document.hidden || document.webkitHidden) {
                         isOpened = true;
@@ -90,17 +92,29 @@
                 document.addEventListener('visibilitychange', detectAppOpen);
                 document.addEventListener('webkitvisibilitychange', detectAppOpen);
 
-                window.location.href = deepLink;
+                iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.style.width = '0';
+                iframe.style.height = '0';
+                iframe.style.border = 'none';
+                iframe.style.visibility = 'hidden';
+
+                document.body.appendChild(iframe);
+                iframe.src = deepLink;
 
                 setTimeout(function () {
                     document.removeEventListener('visibilitychange', detectAppOpen);
                     document.removeEventListener('webkitvisibilitychange', detectAppOpen);
+
+                    if (iframe && iframe.parentNode) {
+                        document.body.removeChild(iframe);
+                    }
+
                     if (!isOpened && storeLink) {
                         window.location.href = storeLink;
                     }
                 }, OPEN_APP_TIMEOUT);
             }
-
 
             function initSmartBanner() {
 
@@ -129,3 +143,4 @@
         }
     };
 })(window);
+
