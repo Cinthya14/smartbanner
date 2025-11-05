@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBanner</title>
+</head>
+<body>
+  <!-- SmartBanner -->
+  <div class="z-[101] w-full h-20 fixed bottom-0 left-0 bg-bgGrey py-4 px-3 hidden" id="smartBannerApp">
+	<div class="flex items-center">
+		<button class="flex items-center text-text-corp-primary" id="smart-banner-close-btn" aria-label="Cerrar smart banner">
+			close
+		</button>
+		<div class="ml-2">
+			<h1 class="text-blueCorp-1000 font-normal text-base">Busca empleo</h1>
+			<h2 class="text-blueCorp-700 font-light text-base">en nuestra app</h2>
+		</div>
+		<div class="ml-auto">
+			<a id="smartBannerLink" class="inline-flex focus:outline-none items-center justify-center rounded-xs border-2 transition-colors whitespace-nowraphover:bg-button-ghost-bg-hover hover:border-alpha-white-100 active:bg-button-ghost-bg-active active:border-alpha-white-100 [&amp;:not(:active):focus-visible]:shadow-corp bg-transparent text-text-corp-secondary !border-0  !p-0">
+				<span class="inline-block font-regular-strong">Abrir</span>
+			</a>
+		</div>
+	</div>
+</div>
+<script src="smartbanner.js"></script>
+  <script>
+	window.addEventListener('load', function () {
+		if (window.SmartBanner && typeof SmartBanner.init === 'function') {
+			SmartBanner.init({
+				cookieExpirationDays: 7,
+				androidStoreUrl: 'https://play.google.com/store/apps/details?id=mx.com.occ&referrer=utm_source%3Dsmart_banner',
+				androidDeepLink: 'occmundial:///',
+				iosAppStoreUrl: 'https://itunes.apple.com/app/apple-store/id581420468?pt=1629020&ct=smart_banner&mt=8',
+				iosDeepLink: 'occmundial:///'
+			});
+		}
+	});
+</script>
+</body>
+</html>
